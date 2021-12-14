@@ -127,7 +127,7 @@ public class Main {
         String masterPw = read.next();
         unlocked = masterRepository.MasterPasswordIsEqualTo(masterPw);
         if (unlocked) {
-            passwordSafeEngine = new PasswordSafeEngine("./passwords.pw", new CipherFacility(masterPw));
+            passwordSafeEngine = new PasswordSafeEngine(new MulipleFilesDataLayer("./passwords.pw"), new CipherFacility(masterPw));
             System.out.println("unlocked");
         } else {
             System.out.println("master password did not match ! Failed to unlock.");
