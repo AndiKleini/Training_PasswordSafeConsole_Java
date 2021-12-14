@@ -18,7 +18,39 @@ public class PasswordSafeEngine {
         this.path = path;
     }
     public String[] GetStoredPasswords() throws Exception {
-        File directory = new File(path);
+        return getAllNamesOfPasswords();
+    }
+
+    public void AddNewPassword(PasswordInfo info) throws IOException, Exception {
+        this.storeNewPassword(info);
+    }
+
+    public void DeletePassword(String passwordName) throws Exception, IOException {
+        this.deletePassword(passwordName);
+    }
+
+    public String GetPassword(String passwordName) throws IOException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+        char[] buffer = this.getPasswordCipher(passwordName);
+        return this.cipherFaciility.Decrypt(new String(buffer));
+    }
+
+    private void WriteToFile(String filename, String password) throws IOException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(filename);
+            String crypted = this.cipherFaciility.Encrypt(password);
+            writer.write(crypted);
+        } finally {
+            if (writer != null) try { writer.close(); } catch (IOException ignore) {}
+        }
+    }
+
+    private File GetFileFromName(String name) {
+        return new File( path + "/" + name + ".pw");
+    }
+
+    private String[] getAllNamesOfPasswords() throws Exception {
+        File directory = new File(this.path);
         if (!directory.isDirectory() && !directory.mkdir()) {
             throw new Exception("Unable to create directory");
         }
@@ -28,25 +60,28 @@ public class PasswordSafeEngine {
                 .map(f -> f.getName().split("\\.")[0])
                 .collect(Collectors.toList()).toArray(new String[0]);
     }
-    public void AddNewPassword(PasswordInfo info) throws IOException, Exception {
-        File directory = new File(path);
+
+    private void storeNewPassword(PasswordInfo info) throws Exception {
+        File directory = new File(this.path);
         if (!directory.isDirectory() && !directory.mkdir()) {
             throw new Exception("Unable to create directory");
         }
         File storage = (this.GetFileFromName(info.getName()));
         if (storage.createNewFile()) {
-           this.WriteToFile(storage.getPath(), info.getPlain());
+            this.WriteToFile(storage.getPath(), info.getPlain());
         } else {
             throw new Exception("Password with the same name already existing. Please choose another name of update the existing one.");
         }
     }
-    public void DeletePassword(String passwordName) throws Exception, IOException {
+
+    private void deletePassword(String passwordName) throws Exception {
         File storage = this.GetFileFromName(passwordName);
         if (!storage.delete()) {
             throw new Exception("Unable to delete password setting under " + storage.getName());
         }
     }
-    public String GetPassword(String passwordName) throws IOException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+
+    private char[] getPasswordCipher(String passwordName) throws IOException {
         File passwordFile = this.GetFileFromName(passwordName);
         char[] buffer = null;
         if (passwordFile.exists()) {
@@ -60,27 +95,6 @@ public class PasswordSafeEngine {
                 if (reader != null) { try { reader.close(); } catch (IOException ex) { } };
             }
         }
-        return this.cipherFaciility.Decrypt(new String(buffer));
-    }
-    public void UpdatePassword(PasswordInfo info) throws Exception {
-        File storage = this.GetFileFromName(info.getName());
-        if (storage.exists()) {
-            this.WriteToFile(storage.getPath(), info.getPlain());
-        } else {
-            throw new Exception("Password with the same name not existing.");
-        }
-    }
-    private void WriteToFile(String filename, String password) throws IOException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(filename);
-            String crypted = this.cipherFaciility.Encrypt(password);
-            writer.write(crypted);
-        } finally {
-            if (writer != null) try { writer.close(); } catch (IOException ignore) {}
-        }
-    }
-    private File GetFileFromName(String name) {
-        return new File( path + "/" + name + ".pw");
+        return buffer;
     }
 }
