@@ -28,7 +28,8 @@ public class Main {
                     String masterPw = read.next();
                     locked = !masterRepository.MasterPasswordIsEqualTo(masterPw);
                     if (!locked) {
-                        passwordSafeEngine = new PasswordSafeEngine("./passwords.pw", new CipherFacility(masterPw));
+                        String passwordPath = "./passwords.pw";
+                        passwordSafeEngine = PasswordSafeEngineFactoryMethod.getPasswordSafeEngine(masterPw, passwordPath);
                         System.out.println("unlocked");
                     } else {
                         System.out.println("master password did not match ! Failed to unlock.");
@@ -101,4 +102,5 @@ public class Main {
 
         System.out.println("Good by !");
     }
+
 }
