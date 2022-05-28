@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static final MasterPasswordRepository masterRepository = new MasterPasswordRepository("./master.pw");
+    private static final MasterPasswordRepository masterRepository = MasterPasswordRepository.instance();
+
     private static PasswordSafeEngine passwordSafeEngine = null;
 
     public static void main(String[] args) throws Exception {

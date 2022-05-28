@@ -1,0 +1,6 @@
+Documents the refactoring steps for creating a singleton out of MasterPasswordRepository:
+1.) (Main) Extract method instance of ctor MasterPasswordRepository (refactoring tool: extract method)
+2.) (Main) Move above extracted method into the class MasterPasswordRepository (refactoring tool: move members)
+3.) (MasterPasswordRepository) create instance field for the instance (refactoring tool: create field)
+4.) (MasterPasswordRepository) implement double null checking approach.
+5.) (MasterPasswordRepository) Make ctor private.

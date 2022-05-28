@@ -6,11 +6,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class MasterPasswordRepository {
+    private static final Object syncRoot = new Object();
+    private static MasterPasswordRepository instance;
     private String masterPasswordPath;
 
-    public MasterPasswordRepository(String masterPasswordPath) {
+    private MasterPasswordRepository(String masterPasswordPath) {
         this.masterPasswordPath = masterPasswordPath;
     }
+
+    static MasterPasswordRepository instance() {
+        if (instance == null) {
+            synchronized (syncRoot) {
+                if (instance == null) {
+                    instance = new MasterPasswordRepository("./master.pw");
+                }
+            }
+        }
+        return instance;
+    }
+
     public void setMasterPasswordPlain(String masterPassword) throws Exception {
         this.StoreMasterPasswordToFile(masterPassword);
     }
