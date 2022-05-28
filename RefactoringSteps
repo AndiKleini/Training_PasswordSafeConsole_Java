@@ -1,0 +1,10 @@
+Documents the refactoring steps for the observer pattern:
+1.) Create package observer and add class UserTrackingSubscriber
+2.) Implement method forwardSelection.
+3.) Extract interface IUserSelectionSubscriber.
+4.) (Main) Create static ArrayList<IUserSelectionSubscriber> field for subscribers.
+5.) (Main) Add instance of UserTrackingSubscriber by field initializer.
+7.) (Main) Create method forwardUserSelection in Main class.
+8.) (Main) Add instance of MasterPasswordChangingAwarenessSubscriber by field initializer.
+9.) (Main) Generate class MasterPasswordChangingAwarenessSubscriber (refactoring tool: create class)
+10.) (MasterPasswordChangingAwarenessSubscriber) Implement forwardSelection properly.

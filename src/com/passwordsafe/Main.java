@@ -1,6 +1,12 @@
 package com.passwordsafe;
 
+import com.passwordsafe.observer.IUserSelectionSubscriber;
+import com.passwordsafe.observer.UserTrackingSubscriber;
+import com.passwordsafe.observer.MasterPasswordChangingAwarenessSubscriber;
+
 import java.io.File;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -8,6 +14,13 @@ public class Main {
 
     private static final MasterPasswordRepository masterRepository = new MasterPasswordRepository("./master.pw");
     private static PasswordSafeEngine passwordSafeEngine = null;
+
+    private static ArrayList<IUserSelectionSubscriber> userSelectionSubscriber = new ArrayList<IUserSelectionSubscriber>() {
+        {
+            add(new UserTrackingSubscriber());
+            add(new MasterPasswordChangingAwarenessSubscriber());
+        }
+    };
 
     public static void main(String[] args) throws Exception {
         System.out.println("Welcome to Passwordsafe");
@@ -18,6 +31,7 @@ public class Main {
         while (!abort) {
             System.out.println("Enter master (1), show all (2), show single (3), add (4), delete(5), set new master (6), Abort (0)");
             int input = read.nextInt();
+            forwardUserSelection(input);
             switch (input) {
                 case 0: {
                     abort = true;
@@ -100,5 +114,9 @@ public class Main {
         }
 
         System.out.println("Good by !");
+    }
+
+    private static void forwardUserSelection(int input) {
+        userSelectionSubscriber.forEach(subscriber -> subscriber.forwardSelection(input));
     }
 }
