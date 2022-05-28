@@ -1,0 +1,4 @@
+This file lists the steps for the refactoring to a FactoryMethod for class PasswordSafeEngine:
+1.) (Main.java) Extract variable  for the hard coded string "./passwords.pw" pass at the ctor of PasswordSafeEngine (refactoring tool: introduce variable).
+2.) (Main.java) Extract ctor of PasswordSafeEngine into static method (refactoring tool: extract method).
+3.) (Main.java) Move afore created method to PasswordSafeEngineFactoryMethod, which is crated during the moving step (refactoring step: move members).
