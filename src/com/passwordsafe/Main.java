@@ -1,11 +1,10 @@
 package com.passwordsafe;
 
-import com.passwordsafe.observer.IUserSelectionSubscriber;
-import com.passwordsafe.observer.UserTrackingSubscriber;
-import com.passwordsafe.observer.MasterPasswordChangingAwarenessSubscriber;
+import com.passwordsafe.subscriber.IUserSelectionSubscriber;
+import com.passwordsafe.subscriber.UserTrackingSubscriber;
+import com.passwordsafe.subscriber.MasterPasswordChangingAwarenessSubscriber;
 
 import java.io.File;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;

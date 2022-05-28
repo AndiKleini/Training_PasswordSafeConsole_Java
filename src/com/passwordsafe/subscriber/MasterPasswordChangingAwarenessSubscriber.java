@@ -1,6 +1,6 @@
-package com.passwordsafe.observer;
+package com.passwordsafe.subscriber;
 
-public class MasterPasswordChangingAwarenessSubscriber implements com.passwordsafe.observer.IUserSelectionSubscriber {
+public class MasterPasswordChangingAwarenessSubscriber implements com.passwordsafe.subscriber.IUserSelectionSubscriber {
     @Override
     public void forwardSelection(int selection) {
          if (selection == 6) {

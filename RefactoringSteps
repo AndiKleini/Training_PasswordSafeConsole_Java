@@ -1,5 +1,5 @@
 Documents the refactoring steps for the observer pattern:
-1.) Create package observer and add class UserTrackingSubscriber
+1.) Create package subscriber and add class UserTrackingSubscriber
 2.) Implement method forwardSelection.
 3.) Extract interface IUserSelectionSubscriber.
 4.) (Main) Create static ArrayList<IUserSelectionSubscriber> field for subscribers.

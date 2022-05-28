@@ -1,4 +1,4 @@
-package com.passwordsafe.observer;
+package com.passwordsafe.subscriber;
 
 import java.util.ArrayList;
 import java.util.Date;
