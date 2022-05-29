@@ -5,18 +5,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class MasterPasswordRepository {
+public class MasterPasswordRepository implements IMasterPasswordRepository {
     private String masterPasswordPath;
 
     public MasterPasswordRepository(String masterPasswordPath) {
         this.masterPasswordPath = masterPasswordPath;
     }
+    @Override
     public void setMasterPasswordPlain(String masterPassword) throws Exception {
         this.StoreMasterPasswordToFile(masterPassword);
     }
+    @Override
     public String getMasterPasswordPlain() throws Exception {
         return this.GetMasterPasswordFromFile();
     }
+    @Override
     public boolean MasterPasswordIsEqualTo(String masterPassword) throws Exception {
         return masterPassword.equals(this.GetMasterPasswordFromFile());
     }
