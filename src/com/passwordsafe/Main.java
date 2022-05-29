@@ -1,5 +1,9 @@
 package com.passwordsafe;
 
+import com.passwordsafe.plugins.PluginBase;
+import com.passwordsafe.plugins.SuggestPasswordPlugin;
+import com.passwordsafe.plugins.TestPasswordStrenght;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -16,7 +20,7 @@ public class Main {
         boolean locked = true;
         Scanner read = new Scanner(System.in);
         while (!abort) {
-            System.out.println("Enter master (1), show all (2), show single (3), add (4), delete(5), set new master (6), Abort (0)");
+            System.out.println("Enter master (1), show all (2), show single (3), add (4), delete(5), set new master (6), execute plugin (7), Abort (0)");
             int input = read.nextInt();
             switch (input) {
                 case 0: {
@@ -94,11 +98,33 @@ public class Main {
                     oldPasswords.delete();
                     break;
                 }
+                case 7:
+                {
+                    System.out.println("Suggest Password (1), Test Password strength (2), Abort (0)");
+                    int plugin = read.nextInt();
+                    PluginBase commandToExecute = null;
+                    commandToExecute = getPlugin(read, plugin, commandToExecute);
+                    commandToExecute.execute();
+                    break;
+                }
                 default:
                     System.out.println("Invalid input");
             }
         }
 
         System.out.println("Good by !");
+    }
+
+    private static PluginBase getPlugin(Scanner read, int plugin, PluginBase commandToExecute) {
+        switch (plugin) {
+            case 1: {
+                commandToExecute = new SuggestPasswordPlugin();
+                break;
+            }
+            case 2: {
+                commandToExecute = new TestPasswordStrenght(read);
+            }
+        }
+        return commandToExecute;
     }
 }
