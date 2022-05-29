@@ -1,4 +1,4 @@
-In this refactoring we want to integrate the chuck norris API (https://api.chucknorris.io/random) to provide a joke
+In this refactoring we want to integrate the chuck norris API (https://api.chucknorris.io/jokes/random) to provide a joke
 on a users request:
 1.) (Main) Create selection case 7 "Get joke" and extend menu options properly
 2.) (Main) Write code for http request directly in case block.
