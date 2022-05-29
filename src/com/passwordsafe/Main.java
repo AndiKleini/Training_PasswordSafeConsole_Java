@@ -1,6 +1,8 @@
 package com.passwordsafe;
 
-import java.io.File;
+import com.passwordsafe.joke.JokeLoader;
+
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -16,7 +18,7 @@ public class Main {
         boolean locked = true;
         Scanner read = new Scanner(System.in);
         while (!abort) {
-            System.out.println("Enter master (1), show all (2), show single (3), add (4), delete(5), set new master (6), Abort (0)");
+            System.out.println("Enter master (1), show all (2), show single (3), add (4), delete(5), set new master (6), get joke (7) Abort (0)");
             int input = read.nextInt();
             switch (input) {
                 case 0: {
@@ -94,6 +96,10 @@ public class Main {
                     oldPasswords.delete();
                     break;
                 }
+                case 7: {
+                    System.out.println(JokeLoader.requestJoke());
+                    break;
+                }
                 default:
                     System.out.println("Invalid input");
             }
@@ -101,4 +107,5 @@ public class Main {
 
         System.out.println("Good by !");
     }
+
 }
