@@ -7,4 +7,4 @@ the decorator design pattern:
 5.) (PasswordStrengthTesterFactoryMethod) Create decorator PasswordContainsNumberTester (refactoring tool: create class)
 6.) (PasswordContainsNumberTester) Implement logic in class.
 7.) (PasswordContainsNumberTester) Create abstract base class PasswordStrengthTesterDecorator (refactoring tool: extract base class).
-8.) (Main) Create another decorator (refactoring tool: create class).
+8.) (Main) Create an other decorator ContainsSpecialCharacterPasswordStrengthTester (refactoring tool: create class).
