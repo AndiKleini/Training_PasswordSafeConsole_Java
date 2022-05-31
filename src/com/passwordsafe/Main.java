@@ -1,5 +1,7 @@
 package com.passwordsafe;
 
+import com.passwordsafe.pwdstrength.PasswordStrengthTesterFactoryMethod;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -80,6 +82,10 @@ public class Main {
                     passwordSafeEngine = null;
                     System.out.println("Enter new master password ! (Warning you will loose all already stored passwords)");
                     String masterPw = read.next();
+                    System.out.println(
+                            "Strength of password: " +
+                            PasswordStrengthTesterFactoryMethod.getStrengthTester().getStrength(masterPw));
+
                     masterRepository.setMasterPasswordPlain(masterPw);
                     // urgent hotfix delete old passwords after changing the master
                     File oldPasswords = new File("./passwords.pw");

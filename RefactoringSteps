@@ -1,0 +1,10 @@
+In this section we will implement a strength test for new entered passwords based on
+the decorator design pattern:
+1.) (Main) Create class SimplePasswordStrengthTester (refactoring tool: create class)
+2.) (SimplePasswordStrengthTester) Implement class SimplePasswordStrengthTester.
+3.) (Main) Create interface IPasswordStrengthTester from SimplePasswordStrengthTester (refactoring tool: extract interface).
+4.) (Main) Create PasswordStrengthTesterFactoryMethod (refactoring tool: extract method and move to class).
+5.) (PasswordStrengthTesterFactoryMethod) Create decorator PasswordContainsNumberTester (refactoring tool: create class)
+6.) (PasswordContainsNumberTester) Implement logic in class.
+7.) (PasswordContainsNumberTester) Create abstract base class PasswordStrengthTesterDecorator (refactoring tool: extract base class).
+8.) (Main) Create another decorator (refactoring tool: create class).
